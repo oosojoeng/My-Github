@@ -1,0 +1,29 @@
+## 맵플롯립으로 지역별 지진 빈도수 알아보기
+from matplotlib import font_manager as fm, rc
+import matplotlib.pyplot as plt
+
+# 나눔고딕 폰트 경로 설정
+font_path = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'
+font_prop = fm.FontProperties(fname=font_path, size=18)
+font_name = font_prop.get_name()
+plt.rc('font', family=font_name)
+
+# 폰트 속성 설정
+plt.rcParams['font.size'] = 10
+plt.rcParams['axes.unicode_minus'] = False
+
+locations = ['경북 경주시', '충남 태안군', '전남 신안군 흑산도', '강원 동해시', '인천 강화군', '경북 김천시', '충북 괴산군', '북한 강원 원산', '전남 여수시', '경북 영덕군', '경남 진주시', '경남 밀양시', '경남 창녕군', '북한 강원 평강', '전남 해남군', '경북 상주시', '경남 밀양시', '경남 창녕군', '북한 강원 평강', '북한 황해북도 송림', '북한 평안남도 양덕', '경북 울진군', '강원 동해시', '경북 포항시', '인천 옹진군', '경북 영덕군', '전남 신안군 흑산도', '북한 황해남도 용연', '경북 포항']
+sizes = [3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 4.2, 4.8, 3.9, 5.2, 4.4, 4.7, 5.1, 4.3, 4.6, 3.8, 5.4, 4.9, 3.7, 5.3, 4.1, 4.9, 3.8, 5.0, 4.6, 4.2, 5.1, 4.7, 4.4, 3.9]
+
+# 3.0 이상의 규모가 많이 발생하는 지역 선택
+selected_locations = [location for location, size in zip(locations, sizes) if size >= 3.0]
+
+# 선택된 지역의 데이터 추출
+selected_sizes = [size for size in sizes if size >= 3.0]
+
+# 그래프 그리기
+plt.bar(range(len(selected_sizes)), selected_sizes, color='skyblue')
+plt.title("3.0 이상 규모가 많이 발생하는 지역")
+plt.ylabel("규모")
+plt.xticks(range(len(selected_locations)), selected_locations, rotation='vertical')
+plt.show()

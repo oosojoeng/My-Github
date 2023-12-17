@@ -1,0 +1,28 @@
+# 파일 읽기
+import csv
+
+f = open('/content/earthquake.csv')
+data = csv.reader(f)
+for row in data:
+  print(row)
+f.cloes()
+
+# 판다스로 csv 파일 읽기
+import pandas as pd
+
+eq = pd.read_csv('/content/earthquake.csv')
+eq
+
+# 행과 열에 있는 결손값 삭제하기
+eq.dropna(axis=1, how='all', inplace=True)
+eq
+
+eq.dropna(axis=0, how='all', inplace=True)
+eq
+
+# 지진 데이터 가시화 하기
+import pandas as pd
+import matplotlib.pyplot as plt
+
+eq = pd.read_csv('/content/earthquake.csv', index_col = 0)
+eq['규모'].plot(kind = 'hist', bins=10, title = 'Earthquake Magnitude Frequency', xlabel = 'size')
